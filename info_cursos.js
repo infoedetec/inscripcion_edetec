@@ -74,7 +74,7 @@ const configuracionCuotas = {
 // CONFIGURACIÓN DE DATOS BANCARIOS PARA TRANSFERENCIA
 const datosBancarios = {
     titular: 'EDETEC de Melina Giardino',
-    cuit: '20-26389236-5',  // ← ACTUALIZAR con tu CUIT real
+    cuit: '27-24881836-6',  // ← ACTUALIZAR con tu CUIT real
     banco: 'Mercado Pago',  // ← ACTUALIZAR con tu banco
     cbu: '0000003100026395895920',  // ← ACTUALIZAR con tu CBU (22 dígitos)
     alias: 'EDETEC.CURSOS.MP'  // ← ACTUALIZAR con tu alias
@@ -84,7 +84,7 @@ const datosBancarios = {
 const contactoPago = {
     whatsapp: '+54 9 11 2793 1074',
     email: 'info.edetec@gmail.com',
-    textoInstrucciones: 'Luego de realizar el pago enviar comprobanteindicando Nombre y Apellido. Gracias'
+    textoInstrucciones: 'Luego de realizar el pago enviar comprobante por Whatsapp y/o Email indicando Nombre y Apellido. Gracias'
 };
 
 // ========================================
