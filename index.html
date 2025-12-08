@@ -452,7 +452,12 @@
             <div class="transferencia-info" id="transferenciaInfo" style="display: none;">
                 <div class="transferencia-header">
                     <h3>💳 Datos para Transferencia Bancaria</h3>
-                    <p class="descuento-badge">✨ 10% de descuento aplicado</p>
+                    <p class="descuento-badge">✨ <span id="porcentajeDescuento">10</span>% de descuento aplicado</p>
+                    <div class="monto-transferir" style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: center;">
+                        <p style="margin: 0; color: #2e7d32; font-size: 14px; font-weight: 500;">Monto a transferir:</p>
+                        <p style="margin: 5px 0 0 0; color: #1b5e20; font-size: 28px; font-weight: 700;" id="montoConDescuento">Calculando...</p>
+                        <p style="margin: 5px 0 0 0; color: #666; font-size: 13px; text-decoration: line-through;" id="precioOriginal"></p>
+                    </div>
                 </div>
                 
                 <div class="datos-bancarios">
@@ -475,7 +480,16 @@
 
                 <div class="instrucciones-pago">
                     <h4>📋 Cómo informar tu pago:</h4>
-                    <p id="textoInstrucciones" style="line-height: 1.7; color: #555;">Cargando instrucciones...</p>
+                    <p id="textoInstrucciones" style="line-height: 1.7; color: #555; margin-bottom: 15px;">Cargando instrucciones...</p>
+                    <div style="background: #f5f5f5; padding: 12px; border-radius: 6px; margin-top: 10px;">
+                        <p style="margin: 0 0 8px 0; font-weight: 600; color: #333;">📞 Datos de contacto:</p>
+                        <p style="margin: 0 0 5px 0; color: #555;">
+                            <strong>WhatsApp:</strong> <span id="contactoWhatsApp">Cargando...</span>
+                        </p>
+                        <p style="margin: 0; color: #555;">
+                            <strong>Email:</strong> <span id="contactoEmail">Cargando...</span>
+                        </p>
+                    </div>
                 </div>
 
                 <div class="nota-importante">
@@ -509,9 +523,16 @@
                 document.getElementById('datoAlias').textContent = datosBancarios.alias;
             }
 
-            // Cargar texto de instrucciones
+            // Cargar texto de instrucciones y datos de contacto
             if (typeof contactoPago !== 'undefined') {
                 document.getElementById('textoInstrucciones').textContent = contactoPago.textoInstrucciones;
+                document.getElementById('contactoWhatsApp').textContent = contactoPago.whatsapp;
+                document.getElementById('contactoEmail').textContent = contactoPago.email;
+            }
+            
+            // Cargar porcentaje de descuento
+            if (typeof configuracionDescuento !== 'undefined') {
+                document.getElementById('porcentajeDescuento').textContent = configuracionDescuento.porcentaje;
             }
         });
 
@@ -633,19 +654,11 @@
         const transferenciaInfo = document.getElementById('transferenciaInfo');
 
         promoCheckbox.addEventListener('change', function() {
+            // Solo cambiar el texto del botón, no mostrar nada aún
             if (this.checked) {
-                // Ocultar botón de pagar y mostrar datos de transferencia
-                btnContinuarPago.style.display = 'none';
-                transferenciaInfo.style.display = 'block';
-                
-                // Scroll suave hacia la sección de transferencia
-                setTimeout(() => {
-                    transferenciaInfo.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }, 100);
+                btnContinuarPago.textContent = 'Continuar al Pago (Con Transferencia) →';
             } else {
-                // Mostrar botón y ocultar datos de transferencia
-                btnContinuarPago.style.display = 'block';
-                transferenciaInfo.style.display = 'none';
+                btnContinuarPago.textContent = 'Continuar al Pago →';
             }
         });
 
@@ -734,13 +747,34 @@
                 // Si usa promo de transferencia, mostrar los datos de transferencia
                 if (usaPromoTransferencia) {
                     document.getElementById('loading').classList.remove('show');
-                    document.getElementById('inscripcionForm').style.display = 'block';
                     
-                    // Mostrar mensaje de éxito
-                    alert('¡Inscripción registrada! Por favor realizá la transferencia y enviá el comprobante por WhatsApp.');
+                    // Calcular monto con descuento
+                    const infoCurso = infoCompletaCursos[curso];
+                    const precioCurso = infoCurso ? infoCurso.precio : null;
                     
-                    // Hacer scroll a la sección de transferencia
-                    document.getElementById('transferenciaInfo').scrollIntoView({ behavior: 'smooth' });
+                    if (typeof precioCurso === 'number') {
+                        const porcentajeDesc = configuracionDescuento.porcentaje;
+                        const montoDescuento = precioCurso * (porcentajeDesc / 100);
+                        const montoFinal = precioCurso - montoDescuento;
+                        
+                        // Mostrar precios
+                        document.getElementById('precioOriginal').textContent = 'Precio original: $' + precioCurso.toLocaleString('es-AR');
+                        document.getElementById('montoConDescuento').textContent = '$' + montoFinal.toLocaleString('es-AR');
+                    } else {
+                        // Si el precio es "Consultar", mostrar mensaje
+                        document.getElementById('precioOriginal').style.display = 'none';
+                        document.getElementById('montoConDescuento').textContent = 'Consultar';
+                        document.getElementById('montoConDescuento').style.fontSize = '20px';
+                    }
+                    
+                    // Ocultar el formulario y mostrar datos de transferencia
+                    document.getElementById('inscripcionForm').style.display = 'none';
+                    document.getElementById('transferenciaInfo').style.display = 'block';
+                    
+                    // Scroll suave a la sección de transferencia
+                    setTimeout(() => {
+                        document.getElementById('transferenciaInfo').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
                 } else {
                     // Redirigir a MercadoPago
                     const mpLink = mercadoPagoLinks[curso];
