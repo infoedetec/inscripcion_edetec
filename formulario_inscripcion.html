@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscripción Cursos CNC - EDETEC</title>
+    <script src="info_cursos.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        .logo h1 {
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .logo p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .radio-option label {
+            margin: 0;
+            font-weight: 400;
+            cursor: pointer;
+        }
+
+        .curso-option {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .curso-option:hover {
+            border-color: #667eea;
+            background-color: #f8f9ff;
+        }
+
+        .curso-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .curso-option.selected {
+            border-color: #667eea;
+            background-color: #f0f3ff;
+        }
+
+        .fecha-inicio-info {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            border-radius: 4px;
+        }
+
+        .fecha-inicio-info.show {
+            display: block;
+        }
+
+        .fecha-inicio-info p {
+            color: #856404;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Estilos para la promo box */
+        .promo-box {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 2px solid #ff9800;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            gap: 12px;
+            user-select: none;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #ff9800;
+        }
+
+        .promo-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #e65100;
+        }
+
+        /* Estilos para la sección de transferencia */
+        .transferencia-info {
+            background: #f8f9ff;
+            border: 2px solid #667eea;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+            animation: slideDown 0.4s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .transferencia-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .transferencia-header h3 {
+            color: #667eea;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .descuento-badge {
+            background: linear-gradient(135deg, #4caf50, #81c784);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .datos-bancarios {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .dato-item {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 15px;
+        }
+
+        .dato-item:last-child {
+            border-bottom: none;
+        }
+
+        .dato-item strong {
+            color: #667eea;
+            margin-right: 10px;
+        }
+
+        .instrucciones-pago {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .instrucciones-pago h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .instrucciones-pago ol {
+            margin-left: 20px;
+        }
+
+        .instrucciones-pago li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .nota-importante {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            color: #856404;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .transferencia-info {
+                padding: 20px;
+            }
+
+            .promo-text {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="logo_edetec.png" alt="EDETEC Logo">
+            <p>Inscripción a Cursos CNC</p>
+        </div>
+
+        <form id="inscripcionForm">
+            <div class="form-group">
+                <label for="nombre">Nombre <span class="required">*</span></label>
+                <input type="text" id="nombre" name="nombre" required>
+                <div class="error-message" id="error-nombre">Por favor ingrese su nombre</div>
+            </div>
+
+            <div class="form-group">
+                <label for="apellido">Apellido <span class="required">*</span></label>
+                <input type="text" id="apellido" name="apellido" required>
+                <div class="error-message" id="error-apellido">Por favor ingrese su apellido</div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required>
+                <div class="error-message" id="error-email">Por favor ingrese un email válido</div>
+            </div>
+
+            <div class="form-group">
+                <label for="emailConfirm">Confirmar Email <span class="required">*</span></label>
+                <input type="email" id="emailConfirm" name="emailConfirm" required>
+                <div class="error-message" id="error-emailConfirm">Los emails no coinciden</div>
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">Teléfono / WhatsApp <span class="required">*</span></label>
+                <input type="tel" id="telefono" name="telefono" placeholder="+54 9 11 1234-5678" required>
+                <div class="error-message" id="error-telefono">Por favor ingrese su teléfono</div>
+            </div>
+
+            <div class="form-group">
+                <label>Tipo de inscripción <span class="required">*</span></label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="particular" name="tipo" value="Particular" required>
+                        <label for="particular">Particular</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="empresa" name="tipo" value="Empresa" required>
+                        <label for="empresa">Empresa</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" id="empresaNombreGroup" style="display: none;">
+                <label for="empresaNombre">Nombre de la Empresa</label>
+                <input type="text" id="empresaNombre" name="empresaNombre">
+            </div>
+
+            <div class="form-group">
+                <label>Seleccione el curso <span class="required">*</span></label>
+                
+                <div class="curso-option" data-curso="TORNO CNC PRESENCIAL" data-tiene-fecha="true">
+                    <input type="radio" id="curso1" name="curso" value="TORNO CNC PRESENCIAL" required>
+                    <label for="curso1">TORNO CNC PRESENCIAL</label>
+                </div>
+
+                <div class="curso-option" data-curso="TORNO CNC SEMI PRESENCIAL" data-tiene-fecha="false">
+                    <input type="radio" id="curso2" name="curso" value="TORNO CNC SEMI PRESENCIAL" required>
+                    <label for="curso2">TORNO CNC SEMI PRESENCIAL</label>
+                </div>
+
+                <div class="curso-option" data-curso="TORNO CNC A DISTANCIA" data-tiene-fecha="false">
+                    <input type="radio" id="curso3" name="curso" value="TORNO CNC A DISTANCIA" required>
+                    <label for="curso3">TORNO CNC A DISTANCIA</label>
+                </div>
+
+                <div class="curso-option" data-curso="FRESA CNC PRESENCIAL" data-tiene-fecha="true">
+                    <input type="radio" id="curso4" name="curso" value="FRESA CNC PRESENCIAL" required>
+                    <label for="curso4">FRESA CNC PRESENCIAL</label>
+                </div>
+
+                <div class="curso-option" data-curso="FRESA CNC SEMI PRESENCIAL" data-tiene-fecha="false">
+                    <input type="radio" id="curso5" name="curso" value="FRESA CNC SEMI PRESENCIAL" required>
+                    <label for="curso5">FRESA CNC SEMI PRESENCIAL</label>
+                </div>
+
+                <div class="curso-option" data-curso="FRESA CNC A DISTANCIA" data-tiene-fecha="false">
+                    <input type="radio" id="curso6" name="curso" value="FRESA CNC A DISTANCIA" required>
+                    <label for="curso6">FRESA CNC A DISTANCIA</label>
+                </div>
+
+                <div class="curso-option" data-curso="CAD CAM PRESENCIAL" data-tiene-fecha="true">
+                    <input type="radio" id="curso7" name="curso" value="CAD CAM PRESENCIAL" required>
+                    <label for="curso7">CAD CAM PRESENCIAL</label>
+                </div>
+
+                <div class="fecha-inicio-info" id="fechaInicioInfo">
+                    <p><strong>📅 Próxima fecha de inicio:</strong> <span id="fechaInicio">A confirmar</span></p>
+                </div>
+            </div>
+
+            <div class="form-group promo-box">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="promoTransferencia" name="promoTransferencia">
+                    <span class="checkmark"></span>
+                    <span class="promo-text">🎉 Usar Promo 10% descuento por pago por transferencia</span>
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn" id="btnContinuarPago">Continuar al Pago →</button>
+            
+            <!-- Sección de datos de transferencia (oculta por defecto) -->
+            <div class="transferencia-info" id="transferenciaInfo" style="display: none;">
+                <div class="transferencia-header">
+                    <h3>💳 Datos para Transferencia Bancaria</h3>
+                    <p class="descuento-badge">✨ 10% de descuento aplicado</p>
+                </div>
+                
+                <div class="datos-bancarios">
+                    <div class="dato-item">
+                        <strong>Titular:</strong> EDETEC
+                    </div>
+                    <div class="dato-item">
+                        <strong>CUIT:</strong> XX-XXXXXXXX-X
+                    </div>
+                    <div class="dato-item">
+                        <strong>Banco:</strong> [Nombre del Banco]
+                    </div>
+                    <div class="dato-item">
+                        <strong>CBU:</strong> XXXXXXXXXXXXXXXXXXXXXXXX
+                    </div>
+                    <div class="dato-item">
+                        <strong>Alias:</strong> [ALIAS.TRANSFERENCIA]
+                    </div>
+                </div>
+
+                <div class="instrucciones-pago">
+                    <h4>📋 Cómo informar tu pago:</h4>
+                    <ol>
+                        <li>Realizá la transferencia por el monto indicado</li>
+                        <li>Guardá el comprobante de la transferencia</li>
+                        <li>Enviá el comprobante por WhatsApp al <strong>+54 9 11 XXXX-XXXX</strong></li>
+                        <li>Incluí en el mensaje: tu nombre completo y el curso elegido</li>
+                        <li>Recibirás confirmación en las próximas 24-48 horas</li>
+                    </ol>
+                </div>
+
+                <div class="nota-importante">
+                    <strong>⚠️ Importante:</strong> Tu inscripción se confirmará una vez que recibamos y verifiquemos el comprobante de transferencia.
+                </div>
+            </div>
+        </form>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Procesando inscripción...</p>
+        </div>
+    </div>
+
+    <script>
+        // NOTA: Toda la información de cursos (precios, fechas, links de MercadoPago) 
+        // se carga automáticamente desde info_cursos.js
+        // Las variables mercadoPagoLinks, fechasInicio y preciosCursos están disponibles globalmente
+
+        // Mostrar/ocultar campo de empresa
+        document.querySelectorAll('input[name="tipo"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const empresaNombreGroup = document.getElementById('empresaNombreGroup');
+                const empresaNombreInput = document.getElementById('empresaNombre');
+                
+                if (this.value === 'Empresa') {
+                    empresaNombreGroup.style.display = 'block';
+                    empresaNombreInput.required = true;
+                } else {
+                    empresaNombreGroup.style.display = 'none';
+                    empresaNombreInput.required = false;
+                    empresaNombreInput.value = '';
+                }
+            });
+        });
+
+        // Validación en tiempo real de confirmación de email
+        document.getElementById('emailConfirm').addEventListener('input', function() {
+            const email = document.getElementById('email').value.trim();
+            const emailConfirm = this.value.trim();
+            const errorMsg = document.getElementById('error-emailConfirm');
+            
+            if (emailConfirm && email !== emailConfirm) {
+                errorMsg.style.display = 'block';
+                this.style.borderColor = '#e74c3c';
+            } else {
+                errorMsg.style.display = 'none';
+                this.style.borderColor = '#e0e0e0';
+            }
+        });
+
+        // Manejo del checkbox de promo transferencia
+        const promoCheckbox = document.getElementById('promoTransferencia');
+        const btnContinuarPago = document.getElementById('btnContinuarPago');
+        const transferenciaInfo = document.getElementById('transferenciaInfo');
+
+        promoCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                // Ocultar botón de pagar y mostrar datos de transferencia
+                btnContinuarPago.style.display = 'none';
+                transferenciaInfo.style.display = 'block';
+                
+                // Scroll suave hacia la sección de transferencia
+                setTimeout(() => {
+                    transferenciaInfo.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            } else {
+                // Mostrar botón y ocultar datos de transferencia
+                btnContinuarPago.style.display = 'block';
+                transferenciaInfo.style.display = 'none';
+            }
+        });
+
+        // Manejo de selección de cursos y mostrar fecha
+        document.querySelectorAll('.curso-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remover selección previa
+                document.querySelectorAll('.curso-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Marcar como seleccionado
+                this.classList.add('selected');
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+                
+                // Mostrar fecha si aplica
+                const tieneFecha = this.dataset.tieneFecha === 'true';
+                const fechaInfo = document.getElementById('fechaInicioInfo');
+                
+                if (tieneFecha) {
+                    const curso = this.dataset.curso;
+                    const fecha = fechasInicioCursos[curso] || 'A confirmar';
+                    document.getElementById('fechaInicio').textContent = fecha;
+                    fechaInfo.classList.add('show');
+                } else {
+                    fechaInfo.classList.remove('show');
+                }
+            });
+        });
+
+        // Manejo del formulario
+        document.getElementById('inscripcionForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Validación básica
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellido = document.getElementById('apellido').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const emailConfirm = document.getElementById('emailConfirm').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const tipo = document.querySelector('input[name="tipo"]:checked')?.value;
+            const curso = document.querySelector('input[name="curso"]:checked')?.value;
+            
+            if (!nombre || !apellido || !email || !emailConfirm || !telefono || !tipo || !curso) {
+                alert('Por favor complete todos los campos requeridos');
+                return;
+            }
+            
+            // Validar que los emails coincidan
+            if (email !== emailConfirm) {
+                alert('Los emails no coinciden. Por favor verifique.');
+                document.getElementById('error-emailConfirm').style.display = 'block';
+                return;
+            }
+            
+            // Obtener empresa si aplica
+            let empresaNombre = '';
+            if (tipo === 'Empresa') {
+                empresaNombre = document.getElementById('empresaNombre').value.trim();
+                if (!empresaNombre) {
+                    alert('Por favor ingrese el nombre de la empresa');
+                    return;
+                }
+            }
+            
+            // Verificar si está usando promo de transferencia
+            const usaPromoTransferencia = document.getElementById('promoTransferencia').checked;
+            
+            // Mostrar loading
+            document.getElementById('inscripcionForm').style.display = 'none';
+            document.getElementById('loading').classList.add('show');
+            
+            // Preparar datos
+            const fechaInscripcion = new Date().toLocaleString('es-AR', { 
+                timeZone: 'America/Argentina/Buenos_Aires' 
+            });
+            
+            const cursosTieneFecha = ['TORNO CNC PRESENCIAL', 'FRESA CNC PRESENCIAL', 'CAD CAM PRESENCIAL'];
+            const fechaInicioCurso = cursosTieneFecha.includes(curso) ? (fechasInicioCursos[curso] || '') : 'Al momento del pago';
+            
+            const datos = {
+                fechaInscripcion: fechaInscripcion,
+                nombre: nombre,
+                apellido: apellido,
+                email: email,
+                telefono: telefono,
+                empresaOParticular: tipo === 'Empresa' ? empresaNombre : 'Particular',
+                curso: curso,
+                fechaInicioCurso: fechaInicioCurso,
+                estado: usaPromoTransferencia ? 'Pendiente de transferencia (10% desc)' : 'Pendiente de pago',
+                metodoPago: usaPromoTransferencia ? 'Transferencia' : 'MercadoPago'
+            };
+            
+            try {
+                // IMPORTANTE: Reemplazar esta URL con la URL de tu Google Apps Script Web App
+                const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkDL0iZriEqPxZT07-EW_A5I7q5w2SuiKAYMHZ3Cas8E9Re6bs6q2BGZ-5WK2M51bcMg/exec';
+                
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(datos)
+                });
+                
+                // Esperar 2 segundos para que se guarde
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Si usa promo de transferencia, mostrar los datos de transferencia
+                if (usaPromoTransferencia) {
+                    document.getElementById('loading').classList.remove('show');
+                    document.getElementById('inscripcionForm').style.display = 'block';
+                    
+                    // Mostrar mensaje de éxito
+                    alert('¡Inscripción registrada! Por favor realizá la transferencia y enviá el comprobante por WhatsApp.');
+                    
+                    // Hacer scroll a la sección de transferencia
+                    document.getElementById('transferenciaInfo').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    // Redirigir a MercadoPago
+                    const mpLink = mercadoPagoLinks[curso];
+                    window.location.href = mpLink;
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Hubo un error al procesar su inscripción. Por favor intente nuevamente o contáctenos por WhatsApp.');
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('inscripcionForm').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
