@@ -71,6 +71,12 @@ const configuracionCuotas = {
     textoAdicional: 'cuotas sin interés con tarjeta de crédito'
 };
 
+// CONFIGURACIÓN DE DESCUENTO POR TRANSFERENCIA
+const configuracionDescuento = {
+    porcentaje: 10,  // Porcentaje de descuento (10 = 10%)
+    textoPromo: '10% de descuento por pago por transferencia'
+};
+
 // CONFIGURACIÓN DE DATOS BANCARIOS PARA TRANSFERENCIA
 const datosBancarios = {
     titular: 'EDETEC de Melina Giardino',
@@ -84,7 +90,7 @@ const datosBancarios = {
 const contactoPago = {
     whatsapp: '+54 9 11 2793 1074',
     email: 'info.edetec@gmail.com',
-    textoInstrucciones: 'Luego de realizar el pago enviar comprobante por Whatsapp y/o Email indicando Nombre y Apellido.'
+    textoInstrucciones: 'Luego de realizar el pago enviar comprobante por WhatsApp al +54 9 11 2793 1074 o por email a info.edetec@gmail.com, indicando Nombre y Apellido. Gracias'
 };
 
 // ========================================
@@ -200,6 +206,7 @@ if (typeof module !== 'undefined' && module.exports) {
         datosBancarios,
         contactoPago,
         configuracionCuotas,
+        configuracionDescuento,
         obtenerInfoCurso,
         obtenerPrecioCurso,
         obtenerFechaInicio, 
