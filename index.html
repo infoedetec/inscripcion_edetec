@@ -428,39 +428,9 @@
             <div class="form-group">
                 <label>Seleccione el curso <span class="required">*</span></label>
                 
-                <div class="curso-option" data-curso="TORNO CNC PRESENCIAL" data-tiene-fecha="true">
-                    <input type="radio" id="curso1" name="curso" value="TORNO CNC PRESENCIAL" required>
-                    <label for="curso1">TORNO CNC PRESENCIAL</label>
-                </div>
-
-                <div class="curso-option" data-curso="TORNO CNC SEMI PRESENCIAL" data-tiene-fecha="false">
-                    <input type="radio" id="curso2" name="curso" value="TORNO CNC SEMI PRESENCIAL" required>
-                    <label for="curso2">TORNO CNC SEMI PRESENCIAL</label>
-                </div>
-
-                <div class="curso-option" data-curso="TORNO CNC A DISTANCIA" data-tiene-fecha="false">
-                    <input type="radio" id="curso3" name="curso" value="TORNO CNC A DISTANCIA" required>
-                    <label for="curso3">TORNO CNC A DISTANCIA</label>
-                </div>
-
-                <div class="curso-option" data-curso="FRESA CNC PRESENCIAL" data-tiene-fecha="true">
-                    <input type="radio" id="curso4" name="curso" value="FRESA CNC PRESENCIAL" required>
-                    <label for="curso4">FRESA CNC PRESENCIAL</label>
-                </div>
-
-                <div class="curso-option" data-curso="FRESA CNC SEMI PRESENCIAL" data-tiene-fecha="false">
-                    <input type="radio" id="curso5" name="curso" value="FRESA CNC SEMI PRESENCIAL" required>
-                    <label for="curso5">FRESA CNC SEMI PRESENCIAL</label>
-                </div>
-
-                <div class="curso-option" data-curso="FRESA CNC A DISTANCIA" data-tiene-fecha="false">
-                    <input type="radio" id="curso6" name="curso" value="FRESA CNC A DISTANCIA" required>
-                    <label for="curso6">FRESA CNC A DISTANCIA</label>
-                </div>
-
-                <div class="curso-option" data-curso="CAD CAM PRESENCIAL" data-tiene-fecha="true">
-                    <input type="radio" id="curso7" name="curso" value="CAD CAM PRESENCIAL" required>
-                    <label for="curso7">CAD CAM PRESENCIAL</label>
+                <!-- Los cursos se cargan automáticamente desde info_cursos.js -->
+                <div id="listaCursos">
+                    <p style="color: #999; font-style: italic;">Cargando cursos...</p>
                 </div>
 
                 <div class="fecha-inicio-info" id="fechaInicioInfo">
@@ -487,31 +457,25 @@
                 
                 <div class="datos-bancarios">
                     <div class="dato-item">
-                        <strong>Titular:</strong> EDETEC
+                        <strong>Titular:</strong> <span id="datoTitular">Cargando...</span>
                     </div>
                     <div class="dato-item">
-                        <strong>CUIT:</strong> XX-XXXXXXXX-X
+                        <strong>CUIT:</strong> <span id="datoCuit">Cargando...</span>
                     </div>
                     <div class="dato-item">
-                        <strong>Banco:</strong> [Nombre del Banco]
+                        <strong>Banco:</strong> <span id="datoBanco">Cargando...</span>
                     </div>
                     <div class="dato-item">
-                        <strong>CBU:</strong> XXXXXXXXXXXXXXXXXXXXXXXX
+                        <strong>CBU:</strong> <span id="datoCbu">Cargando...</span>
                     </div>
                     <div class="dato-item">
-                        <strong>Alias:</strong> [ALIAS.TRANSFERENCIA]
+                        <strong>Alias:</strong> <span id="datoAlias">Cargando...</span>
                     </div>
                 </div>
 
                 <div class="instrucciones-pago">
                     <h4>📋 Cómo informar tu pago:</h4>
-                    <ol>
-                        <li>Realizá la transferencia por el monto indicado</li>
-                        <li>Guardá el comprobante de la transferencia</li>
-                        <li>Enviá el comprobante por WhatsApp al <strong>+54 9 11 XXXX-XXXX</strong></li>
-                        <li>Incluí en el mensaje: tu nombre completo y el curso elegido</li>
-                        <li>Recibirás confirmación en las próximas 24-48 horas</li>
-                    </ol>
+                    <p id="textoInstrucciones" style="line-height: 1.7; color: #555;">Cargando instrucciones...</p>
                 </div>
 
                 <div class="nota-importante">
@@ -527,9 +491,109 @@
     </div>
 
     <script>
-        // NOTA: Toda la información de cursos (precios, fechas, links de MercadoPago) 
+        // NOTA: Toda la información de cursos (precios, fechas, links de MercadoPago, datos bancarios) 
         // se carga automáticamente desde info_cursos.js
-        // Las variables mercadoPagoLinks, fechasInicio y preciosCursos están disponibles globalmente
+        // Las variables mercadoPagoLinks, fechasInicio, preciosCursos, datosBancarios y contactoPago están disponibles globalmente
+
+        // Cargar datos bancarios y de contacto cuando la página cargue
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generar lista de cursos dinámicamente desde info_cursos.js
+            generarListaCursos();
+            
+            // Cargar datos bancarios
+            if (typeof datosBancarios !== 'undefined') {
+                document.getElementById('datoTitular').textContent = datosBancarios.titular;
+                document.getElementById('datoCuit').textContent = datosBancarios.cuit;
+                document.getElementById('datoBanco').textContent = datosBancarios.banco;
+                document.getElementById('datoCbu').textContent = datosBancarios.cbu;
+                document.getElementById('datoAlias').textContent = datosBancarios.alias;
+            }
+
+            // Cargar texto de instrucciones
+            if (typeof contactoPago !== 'undefined') {
+                document.getElementById('textoInstrucciones').textContent = contactoPago.textoInstrucciones;
+            }
+        });
+
+        // Función para generar la lista de cursos desde info_cursos.js
+        function generarListaCursos() {
+            const listaCursosContainer = document.getElementById('listaCursos');
+            
+            if (typeof infoCompletaCursos === 'undefined') {
+                listaCursosContainer.innerHTML = '<p style="color: red;">Error: No se pudo cargar la información de cursos.</p>';
+                return;
+            }
+
+            listaCursosContainer.innerHTML = ''; // Limpiar el contenedor
+            
+            let cursoIndex = 1;
+            Object.keys(infoCompletaCursos).forEach(nombreCurso => {
+                const infoCurso = infoCompletaCursos[nombreCurso];
+                
+                // Crear el div del curso
+                const cursoDiv = document.createElement('div');
+                cursoDiv.className = 'curso-option';
+                cursoDiv.setAttribute('data-curso', nombreCurso);
+                cursoDiv.setAttribute('data-tiene-fecha', infoCurso.tieneFecha ? 'true' : 'false');
+                
+                // Crear input radio
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.id = 'curso' + cursoIndex;
+                input.name = 'curso';
+                input.value = nombreCurso;
+                input.required = true;
+                
+                // Crear label
+                const label = document.createElement('label');
+                label.htmlFor = 'curso' + cursoIndex;
+                label.textContent = nombreCurso;
+                
+                // Agregar elementos al div
+                cursoDiv.appendChild(input);
+                cursoDiv.appendChild(label);
+                
+                // Agregar al contenedor
+                listaCursosContainer.appendChild(cursoDiv);
+                
+                cursoIndex++;
+            });
+            
+            // Después de generar los cursos, agregar los event listeners
+            configurarEventListenersCursos();
+        }
+
+        // Función para configurar los event listeners de los cursos
+        function configurarEventListenersCursos() {
+            document.querySelectorAll('.curso-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remover selección previa
+                    document.querySelectorAll('.curso-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Agregar selección actual
+                    this.classList.add('selected');
+                    
+                    // Marcar el radio button
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                    
+                    // Mostrar fecha de inicio si el curso tiene fecha
+                    const nombreCurso = this.getAttribute('data-curso');
+                    const tieneFecha = this.getAttribute('data-tiene-fecha') === 'true';
+                    const fechaInfo = document.getElementById('fechaInicioInfo');
+                    
+                    if (tieneFecha) {
+                        const fecha = fechasInicioCursos[nombreCurso] || 'A confirmar';
+                        document.getElementById('fechaInicio').textContent = fecha;
+                        fechaInfo.classList.add('show');
+                    } else {
+                        fechaInfo.classList.remove('show');
+                    }
+                });
+            });
+        }
 
         // Mostrar/ocultar campo de empresa
         document.querySelectorAll('input[name="tipo"]').forEach(radio => {
@@ -585,34 +649,6 @@
             }
         });
 
-        // Manejo de selección de cursos y mostrar fecha
-        document.querySelectorAll('.curso-option').forEach(option => {
-            option.addEventListener('click', function() {
-                // Remover selección previa
-                document.querySelectorAll('.curso-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
-                
-                // Marcar como seleccionado
-                this.classList.add('selected');
-                const radio = this.querySelector('input[type="radio"]');
-                radio.checked = true;
-                
-                // Mostrar fecha si aplica
-                const tieneFecha = this.dataset.tieneFecha === 'true';
-                const fechaInfo = document.getElementById('fechaInicioInfo');
-                
-                if (tieneFecha) {
-                    const curso = this.dataset.curso;
-                    const fecha = fechasInicioCursos[curso] || 'A confirmar';
-                    document.getElementById('fechaInicio').textContent = fecha;
-                    fechaInfo.classList.add('show');
-                } else {
-                    fechaInfo.classList.remove('show');
-                }
-            });
-        });
-
         // Manejo del formulario
         document.getElementById('inscripcionForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -660,8 +696,11 @@
                 timeZone: 'America/Argentina/Buenos_Aires' 
             });
             
-            const cursosTieneFecha = ['TORNO CNC PRESENCIAL', 'FRESA CNC PRESENCIAL', 'CAD CAM PRESENCIAL'];
-            const fechaInicioCurso = cursosTieneFecha.includes(curso) ? (fechasInicioCursos[curso] || '') : 'Al momento del pago';
+            // Obtener la fecha de inicio del curso seleccionado
+            const infoCursoSeleccionado = infoCompletaCursos[curso];
+            const fechaInicioCurso = infoCursoSeleccionado && infoCursoSeleccionado.tieneFecha 
+                ? (fechasInicioCursos[curso] || '') 
+                : 'Al momento del pago';
             
             const datos = {
                 fechaInscripcion: fechaInscripcion,
