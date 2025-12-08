@@ -17,50 +17,50 @@
 const infoCompletaCursos = {
     'TORNO CNC PRESENCIAL': {
         precio: 295000,                    // Precio numérico (sin puntos ni comas)
-        fechaInicio: '13/11/2025',         // Formato: DD/MM/YYYY
-        linkMercadoPago: 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=TU_PREFERENCIA_TORNO_PRESENCIAL',
+        fechaInicio: '18/02/2026',         // Formato: DD/MM/YYYY
+        linkMercadoPago: 'https://mpago.la/1ahRq4p',
         tieneFecha: true                   // true si muestra fecha específica
     },
     
     'TORNO CNC SEMI PRESENCIAL': {
         precio: 'Consultar',               // Puede ser número o texto
         fechaInicio: 'Inicio inmediato al acreditar el pago',
-        linkMercadoPago: 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=TU_PREFERENCIA_TORNO_SEMI',
+        linkMercadoPago: 'http://mpago.la/2xz1PrS',
         tieneFecha: false
     },
     
     'TORNO CNC A DISTANCIA': {
         precio: 'Consultar',
         fechaInicio: 'Inicio inmediato al acreditar el pago',
-        linkMercadoPago: 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=TU_PREFERENCIA_TORNO_DISTANCIA',
+        linkMercadoPago: 'http://mpago.la/2333as1',
         tieneFecha: false
     },
     
     'FRESA CNC PRESENCIAL': {
         precio: 295000,
-        fechaInicio: '13/11/2025',
-        linkMercadoPago: 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=TU_PREFERENCIA_FRESA_PRESENCIAL',
+        fechaInicio: '18/02/2026',
+        linkMercadoPago: 'https://mpago.la/1ahRq4p',
         tieneFecha: true
     },
     
     'FRESA CNC SEMI PRESENCIAL': {
         precio: 'Consultar',
         fechaInicio: 'Inicio inmediato al acreditar el pago',
-        linkMercadoPago: 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=TU_PREFERENCIA_FRESA_SEMI',
+        linkMercadoPago: 'http://mpago.la/2xz1PrS',
         tieneFecha: false
     },
     
     'FRESA CNC A DISTANCIA': {
         precio: 'Consultar',
         fechaInicio: 'Inicio inmediato al acreditar el pago',
-        linkMercadoPago: 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=TU_PREFERENCIA_FRESA_DISTANCIA',
+        linkMercadoPago: 'http://mpago.la/2333as1',
         tieneFecha: false
     },
     
-    'CAD CAM PRESENCIAL': {
+    'CAD CAM FRESA Y CENTRO MEC PRESENCIAL': {
         precio: 'Consultar',
-        fechaInicio: '13/11/2025',
-        linkMercadoPago: 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=TU_PREFERENCIA_CADCAM',
+        fechaInicio: '18/02/2026',
+        linkMercadoPago: 'https://mpago.la/1ahRq4p',
         tieneFecha: true
     }
 };
@@ -69,6 +69,22 @@ const infoCompletaCursos = {
 const configuracionCuotas = {
     cantidadCuotas: 3,
     textoAdicional: 'cuotas sin interés con tarjeta de crédito'
+};
+
+// CONFIGURACIÓN DE DATOS BANCARIOS PARA TRANSFERENCIA
+const datosBancarios = {
+    titular: 'EDETEC de Melina Giardino',
+    cuit: '20-26389236-5',  // ← ACTUALIZAR con tu CUIT real
+    banco: 'Mercado Pago',  // ← ACTUALIZAR con tu banco
+    cbu: '0000003100026395895920',  // ← ACTUALIZAR con tu CBU (22 dígitos)
+    alias: 'EDETEC.CURSOS.MP'  // ← ACTUALIZAR con tu alias
+};
+
+// CONFIGURACIÓN DE CONTACTO PARA INFORMAR PAGOS
+const contactoPago = {
+    whatsapp: '+54 9 11 2793 1074',
+    email: 'info.edetec@gmail.com',
+    textoInstrucciones: 'Luego de realizar el pago enviar comprobanteindicando Nombre y Apellido. Gracias'
 };
 
 // ========================================
@@ -181,6 +197,9 @@ if (typeof module !== 'undefined' && module.exports) {
         fechasInicioCursos, 
         preciosCursos,
         mercadoPagoLinks,
+        datosBancarios,
+        contactoPago,
+        configuracionCuotas,
         obtenerInfoCurso,
         obtenerPrecioCurso,
         obtenerFechaInicio, 
