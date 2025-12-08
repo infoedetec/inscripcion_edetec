@@ -23,14 +23,14 @@ const infoCompletaCursos = {
     },
     
     'TORNO CNC SEMI PRESENCIAL': {
-        precio: 'Consultar',               // Puede ser número o texto
+        precio: 215000,               // Puede ser número o texto
         fechaInicio: 'Inicio inmediato al acreditar el pago',
         linkMercadoPago: 'http://mpago.la/2xz1PrS',
         tieneFecha: false
     },
     
     'TORNO CNC A DISTANCIA': {
-        precio: 'Consultar',
+        precio: 135500,
         fechaInicio: 'Inicio inmediato al acreditar el pago',
         linkMercadoPago: 'http://mpago.la/2333as1',
         tieneFecha: false
@@ -44,21 +44,21 @@ const infoCompletaCursos = {
     },
     
     'FRESA CNC SEMI PRESENCIAL': {
-        precio: 'Consultar',
+        precio: 215000,
         fechaInicio: 'Inicio inmediato al acreditar el pago',
         linkMercadoPago: 'http://mpago.la/2xz1PrS',
         tieneFecha: false
     },
     
     'FRESA CNC A DISTANCIA': {
-        precio: 'Consultar',
+        precio: 135500,
         fechaInicio: 'Inicio inmediato al acreditar el pago',
         linkMercadoPago: 'http://mpago.la/2333as1',
         tieneFecha: false
     },
     
     'CAD CAM FRESA Y CENTRO MEC PRESENCIAL': {
-        precio: 'Consultar',
+        precio: 295000,
         fechaInicio: '18/02/2026',
         linkMercadoPago: 'https://mpago.la/1ahRq4p',
         tieneFecha: true
