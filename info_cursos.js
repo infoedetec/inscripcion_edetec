@@ -84,7 +84,7 @@ const datosBancarios = {
 const contactoPago = {
     whatsapp: '+54 9 11 2793 1074',
     email: 'info.edetec@gmail.com',
-    textoInstrucciones: 'Luego de realizar el pago enviar comprobante por Whatsapp y/o Email indicando Nombre y Apellido. Gracias'
+    textoInstrucciones: 'Luego de realizar el pago enviar comprobante por Whatsapp y/o Email indicando Nombre y Apellido.'
 };
 
 // ========================================
