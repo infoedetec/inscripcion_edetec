@@ -80,10 +80,10 @@ const configuracionDescuento = {
 // CONFIGURACIÓN DE DATOS BANCARIOS PARA TRANSFERENCIA
 const datosBancarios = {
     titular: 'EDETEC de Melina Giardino',
-    cuit: '27-24881836-6',  // ← ACTUALIZAR con tu CUIT real
-    banco: 'Mercado Pago',  // ← ACTUALIZAR con tu banco
-    cbu: '0000003100026395895920',  // ← ACTUALIZAR con tu CBU (22 dígitos)
-    alias: 'EDETEC.CURSOS.MP'  // ← ACTUALIZAR con tu alias
+    cuit: '27-24881836-6',
+    banco: 'Mercado Pago',
+    cbu: '0000003100026395895920',
+    alias: 'EDETEC.CURSOS.MP'
 };
 
 // CONFIGURACIÓN DE CONTACTO PARA INFORMAR PAGOS
@@ -92,6 +92,46 @@ const contactoPago = {
     email: 'info.edetec@gmail.com',
     textoInstrucciones: 'Luego de realizar el pago enviar comprobante por WhatsApp al +54 9 11 2793 1074 o por email a info.edetec@gmail.com, indicando Nombre y Apellido. Gracias'
 };
+
+// CONFIGURACIÓN DE INSTRUCTORES POR TIPO DE CURSO
+const instructoresPorCurso = {
+    'TORNO': {
+        nombre: 'German Grgic',
+        whatsapp: '+54 9 11 3044 8044',
+        email: 'info.edetec@gmail.com',
+        horarioAtencion: 'Lunes a Viernes, 9:00 a 19:00 hs'
+    },
+    'FRESA': {
+        nombre: 'Joel Bonavita',
+        whatsapp: '+54 9 11 2705 7531',
+        email: 'info.edetec@gmail.com',
+        horarioAtencion: 'Lunes a Viernes, 9:00 a 19:00 hs'
+    },
+    'CAD CAM': {
+        nombre: 'Joel Bonavita',
+        whatsapp: '+54 9 11 2705 7531',
+        email: 'info.edetec@gmail.com',
+        horarioAtencion: 'Lunes a Viernes, 9:00 a 19:00 hs'
+    }
+};
+
+// Función para obtener el instructor según el curso
+function obtenerInstructorPorCurso(nombreCurso) {
+    if (nombreCurso.includes('TORNO')) {
+        return instructoresPorCurso['TORNO'];
+    } else if (nombreCurso.includes('CAD CAM')) {
+        return instructoresPorCurso['CAD CAM'];
+    } else if (nombreCurso.includes('FRESA')) {
+        return instructoresPorCurso['FRESA'];
+    }
+    // Por defecto, retornar info de contacto general
+    return {
+        nombre: 'EDETEC',
+        whatsapp: contactoPago.whatsapp,
+        email: contactoPago.email,
+        horarioAtencion: 'Lunes a Viernes, 9:00 a 19:00 hs'
+    };
+}
 
 // ========================================
 // NO MODIFICAR EL CÓDIGO DE ABAJO
@@ -207,12 +247,14 @@ if (typeof module !== 'undefined' && module.exports) {
         contactoPago,
         configuracionCuotas,
         configuracionDescuento,
+        instructoresPorCurso,
         obtenerInfoCurso,
         obtenerPrecioCurso,
         obtenerFechaInicio, 
         obtenerLinkMercadoPago,
         obtenerTextoCuotas,
         cursoTieneFecha,
+        obtenerInstructorPorCurso,
         formatearPrecio 
     };
 }
