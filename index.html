@@ -366,6 +366,50 @@
                 font-size: 14px;
             }
         }
+
+        /* Estilos para Términos y Condiciones */
+        .terminos-condiciones {
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .terminos-condiciones h3 {
+            color: #667eea;
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .terminos-condiciones p {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.6;
+            text-align: justify;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-terminos {
+            margin-top: 15px;
+            padding: 15px;
+            background: #fff;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-terminos:hover {
+            background: #f0f4ff;
+            transform: translateY(-2px);
+        }
+
+        .terminos-text {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 15px;
+        }
     </style>
 </head>
 <body>
@@ -443,6 +487,25 @@
                     <input type="checkbox" id="promoTransferencia" name="promoTransferencia">
                     <span class="checkmark"></span>
                     <span class="promo-text">🎉 Usar Promo 10% descuento por pago por transferencia</span>
+                </label>
+            </div>
+
+            <!-- Términos y Condiciones -->
+            <div class="terminos-condiciones">
+                <h3>TÉRMINOS Y CONDICIONES</h3>
+                <p>
+                    Al hacer click en el botón "CONTINUAR AL PAGO" que se encuentra debajo ud. podrá acceder al sitio seguro de MERCADOPAGO y abonar el ADELANTO mediante TARJETA DE CRÉDITO, DÉBITO, PAGO FÁCIL, BAPRO, RAPIPAGO, BANELCO, etc o por Transferencia Bancaria. Antes de abonar por favor asegúrese de contactarnos para conocer todas las características, requisitos del curso y disponibilidad de vacantes. La fecha de inicio de las opciones presenciales podrían demorarse a lo sumo dos semanas, previo aviso al alumno.
+                </p>
+                <p>
+                    Como el material multi-media del curso y/o manual en PDF se envía por email automáticamente unos momentos después haber abonado, lo abonado no tiene devolución pero se podría considerar como crédito a favor del alumno para un próximo curso.
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label class="checkbox-container checkbox-terminos">
+                    <input type="checkbox" id="aceptaTerminos" name="aceptaTerminos" required>
+                    <span class="checkmark"></span>
+                    <span class="terminos-text">Estoy de acuerdo con los TÉRMINOS y CONDICIONES</span>
                 </label>
             </div>
 
@@ -679,9 +742,17 @@
             
             const tipo = document.querySelector('input[name="tipo"]:checked')?.value;
             const curso = document.querySelector('input[name="curso"]:checked')?.value;
+            const aceptaTerminos = document.getElementById('aceptaTerminos').checked;
             
             if (!nombre || !apellido || !email || !emailConfirm || !telefono || !tipo || !curso) {
                 alert('Por favor complete todos los campos requeridos');
+                return;
+            }
+            
+            // Validar que aceptó términos y condiciones
+            if (!aceptaTerminos) {
+                alert('Debe aceptar los Términos y Condiciones para continuar');
+                document.getElementById('aceptaTerminos').focus();
                 return;
             }
             
