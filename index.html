@@ -725,6 +725,20 @@
             }
         });
 
+        // Función para generar fecha en formato consistente
+        // Formato: DD/MM/YYYY HH:MM:SS (siempre igual sin importar configuración del usuario)
+        function obtenerFechaFormateada() {
+            const ahora = new Date();
+            const dia = String(ahora.getDate()).padStart(2, '0');
+            const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+            const año = ahora.getFullYear();
+            const horas = String(ahora.getHours()).padStart(2, '0');
+            const minutos = String(ahora.getMinutes()).padStart(2, '0');
+            const segundos = String(ahora.getSeconds()).padStart(2, '0');
+            
+            return `${dia}/${mes}/${año} ${horas}:${minutos}:${segundos}`;
+        }
+
         // Manejo del formulario
         document.getElementById('inscripcionForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -780,10 +794,8 @@
             document.getElementById('inscripcionForm').style.display = 'none';
             document.getElementById('loading').classList.add('show');
             
-            // Preparar datos
-            const fechaInscripcion = new Date().toLocaleString('es-AR', { 
-                timeZone: 'America/Argentina/Buenos_Aires' 
-            });
+            // Generar fecha en formato consistente
+            const fechaInscripcion = obtenerFechaFormateada();
             
             // Obtener la fecha de inicio del curso seleccionado
             const infoCursoSeleccionado = infoCompletaCursos[curso];
