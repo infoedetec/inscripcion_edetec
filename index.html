@@ -486,7 +486,7 @@
                 <label class="checkbox-container">
                     <input type="checkbox" id="promoTransferencia" name="promoTransferencia">
                     <span class="checkmark"></span>
-                    <span class="promo-text">🎉 Usar Promo 10% descuento por pago por transferencia</span>
+                    <span class="promo-text" id="textoPromoCheckbox">🎉 Usar Promo</span>
                 </label>
             </div>
 
@@ -593,9 +593,10 @@
                 document.getElementById('contactoEmail').textContent = contactoPago.email;
             }
             
-            // Cargar porcentaje de descuento
+            // Cargar porcentaje de descuento y texto de promo desde info_cursos.js
             if (typeof configuracionDescuento !== 'undefined') {
                 document.getElementById('porcentajeDescuento').textContent = configuracionDescuento.porcentaje;
+                document.getElementById('textoPromoCheckbox').textContent = `🎉 Usar Promo ${configuracionDescuento.textoPromo}`;
             }
         });
 
@@ -812,7 +813,7 @@
                 empresaOParticular: tipo === 'Empresa' ? empresaNombre : 'Particular',
                 curso: curso,
                 fechaInicioCurso: fechaInicioCurso,
-                estado: usaPromoTransferencia ? 'Pendiente de transferencia (10% desc)' : 'Pendiente de pago',
+                estado: usaPromoTransferencia ? `Pendiente de transferencia (${configuracionDescuento.porcentaje}% desc)` : 'Pendiente de pago',
                 metodoPago: usaPromoTransferencia ? 'Transferencia' : 'MercadoPago'
             };
             
