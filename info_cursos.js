@@ -72,9 +72,11 @@ const configuracionCuotas = {
 };
 
 // CONFIGURACIÓN DE DESCUENTO POR TRANSFERENCIA
+const PORCENTAJE_DESCUENTO = 10;  // ← Solo esto cambiar cuando se modifique
+
 const configuracionDescuento = {
-    porcentaje: 10,  // Porcentaje de descuento (10 = 10%)
-    textoPromo: '10% de descuento por pago por transferencia'
+    porcentaje: PORCENTAJE_DESCUENTO,
+    textoPromo: `${PORCENTAJE_DESCUENTO}% de descuento por pago por transferencia`
 };
 
 // CONFIGURACIÓN DE DATOS BANCARIOS PARA TRANSFERENCIA
