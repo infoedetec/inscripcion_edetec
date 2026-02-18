@@ -16,50 +16,50 @@
 // CONFIGURACIÓN DE CURSOS
 const infoCompletaCursos = {
     'TORNO CNC PRESENCIAL': {
-        precio: 295000,                    // Precio numérico (sin puntos ni comas)
-        fechaInicio: '18/02/2026',         // Formato: DD/MM/YYYY
+        precio: 325000,                    // Precio numérico (sin puntos ni comas)
+        fechaInicio: '21/04/2026',         // Formato: DD/MM/YYYY
         linkMercadoPago: 'https://mpago.la/1ahRq4p',
         tieneFecha: true                   // true si muestra fecha específica
     },
     
     'TORNO CNC SEMI PRESENCIAL': {
-        precio: 215000,               // Puede ser número o texto
+        precio: 237000,               // Puede ser número o texto
         fechaInicio: 'Inicio inmediato al acreditar el pago',
         linkMercadoPago: 'http://mpago.la/2xz1PrS',
         tieneFecha: false
     },
     
     'TORNO CNC A DISTANCIA': {
-        precio: 135500,
+        precio: 149000,
         fechaInicio: 'Inicio inmediato al acreditar el pago',
         linkMercadoPago: 'http://mpago.la/2333as1',
         tieneFecha: false
     },
     
     'FRESA CNC PRESENCIAL': {
-        precio: 295000,
-        fechaInicio: '18/02/2026',
+        precio: 325000,
+        fechaInicio: '21/04/2026',
         linkMercadoPago: 'https://mpago.la/1ahRq4p',
         tieneFecha: true
     },
     
     'FRESA CNC SEMI PRESENCIAL': {
-        precio: 215000,
+        precio: 237000,
         fechaInicio: 'Inicio inmediato al acreditar el pago',
         linkMercadoPago: 'http://mpago.la/2xz1PrS',
         tieneFecha: false
     },
     
     'FRESA CNC A DISTANCIA': {
-        precio: 135500,
+        precio: 149000,
         fechaInicio: 'Inicio inmediato al acreditar el pago',
         linkMercadoPago: 'http://mpago.la/2333as1',
         tieneFecha: false
     },
     
     'CAD CAM FRESA Y CENTRO MEC PRESENCIAL': {
-        precio: 295000,
-        fechaInicio: '18/02/2026',
+        precio: 325000,
+        fechaInicio: '21/04/2026',
         linkMercadoPago: 'https://mpago.la/1ahRq4p',
         tieneFecha: true
     }
