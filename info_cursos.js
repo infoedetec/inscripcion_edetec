@@ -67,12 +67,12 @@ const infoCompletaCursos = {
 
 // CONFIGURACIÓN DE CUOTAS (aplica a cursos con precio numérico)
 const configuracionCuotas = {
-    cantidadCuotas: 3,
+    cantidadCuotas: 6,
     textoAdicional: 'cuotas sin interés con tarjeta de crédito'
 };
 
 // CONFIGURACIÓN DE DESCUENTO POR TRANSFERENCIA
-const PORCENTAJE_DESCUENTO = 10;  // ← Solo esto cambiar cuando se modifique
+const PORCENTAJE_DESCUENTO = 20;  // ← Solo esto cambiar cuando se modifique
 
 const configuracionDescuento = {
     porcentaje: PORCENTAJE_DESCUENTO,
