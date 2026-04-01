@@ -72,7 +72,7 @@ const configuracionCuotas = {
 };
 
 // CONFIGURACIÓN DE DESCUENTO POR TRANSFERENCIA
-const PORCENTAJE_DESCUENTO = 20;  // ← Solo esto cambiar cuando se modifique
+const PORCENTAJE_DESCUENTO = 10;  // ← Solo esto cambiar cuando se modifique
 
 const configuracionDescuento = {
     porcentaje: PORCENTAJE_DESCUENTO,
