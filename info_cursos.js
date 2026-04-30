@@ -16,8 +16,8 @@
 // CONFIGURACIÓN DE CURSOS
 const infoCompletaCursos = {
     'TORNO CNC PRESENCIAL': {
-        precio: 325000,                    // Precio numérico (sin puntos ni comas)
-        fechaInicio: '05/05/2026',         // Formato: DD/MM/YYYY
+        precio: 360000,                    // Precio numérico (sin puntos ni comas)
+        fechaInicio: '23/06/2026',         // Formato: DD/MM/YYYY
         linkMercadoPago: 'https://mpago.la/1ahRq4p',
         tieneFecha: true                   // true si muestra fecha específica
     },
@@ -37,8 +37,8 @@ const infoCompletaCursos = {
     },
     
     'FRESA CNC PRESENCIAL': {
-        precio: 325000,
-        fechaInicio: '05/05/2026',
+        precio: 360000,
+        fechaInicio: '23/06/2026',
         linkMercadoPago: 'https://mpago.la/1ahRq4p',
         tieneFecha: true
     },
@@ -58,8 +58,8 @@ const infoCompletaCursos = {
     },
     
     'CAD CAM FRESA Y CENTRO MEC PRESENCIAL': {
-        precio: 325000,
-        fechaInicio: '05/05/2026',
+        precio: 360000,
+        fechaInicio: '23/06/2026',
         linkMercadoPago: 'https://mpago.la/1ahRq4p',
         tieneFecha: true
     }
