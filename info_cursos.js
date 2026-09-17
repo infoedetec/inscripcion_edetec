@@ -38,7 +38,7 @@ const infoCompletaCursos = {
     
     'FRESA CNC PRESENCIAL': {
         precio: 360000,
-        fechaInicio: '17/09/2026',
+        fechaInicio: '29/10/2026',
         linkMercadoPago: 'https://mpago.la/1ahRq4p',
         tieneFecha: true
     },
@@ -59,7 +59,7 @@ const infoCompletaCursos = {
     
     'CAD CAM FRESA Y CENTRO MEC PRESENCIAL': {
         precio: 360000,
-        fechaInicio: '17/09/2026',
+        fechaInicio: '29/10/2026',
         linkMercadoPago: 'https://mpago.la/1ahRq4p',
         tieneFecha: true
     }
